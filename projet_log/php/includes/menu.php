@@ -50,6 +50,9 @@ if(isset($_SESSION['role'])){
          <li class="nav-item">
           <a class="nav-link" href="./admin/index_admin.php">Admin</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="../admin/produits/index_produits.php">Produits</a>
+        </li>
         <?php endif ; ?>
         <?php if($connect != 'ok') : ?>
 

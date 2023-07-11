@@ -22,16 +22,22 @@ if(isset($_SESSION['role'])){
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" >
 </head>
 <body>
-    <?php include '../php/includes/menu.php'; ?>
-    <h1>Utilisateurs</h1>
+    
+    <h1>Produits</h1>
+
+        <div class="text-center">
+            <?php echo '<a href="./crud_produits/create_produits.php">Ajout produits</a>';
+            ?>
+        </div>
 
     <div class="wrapper">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
                     <?php
-                    require '../php/crud/config.php';
-                    $sql = "select * from user";
+                    require '../../php/crud/config.php';
+
+                    $sql = "select * from produits";
 
                     if($result = mysqli_query($conn,$sql)){
                         if (mysqli_num_rows($result)>0){
@@ -39,10 +45,11 @@ if(isset($_SESSION['role'])){
                             echo '<thead>';
                             echo ' <tr>';
                                 echo '<th>id</th>';
-                                echo '<th>login</th>';
-                                echo '<th>roles</th>';
-                                echo '<th>compte verifie</th>';
-                                echo '<th>Outils</th>';
+                                echo '<th>Reference</th>';
+                                echo '<th>Categorie</th>';
+                                echo '<th>PUHT</th>';
+                                echo '<th>Description</th>';
+                                echo '<th>Stock</th>';
                             echo '</tr>';
                         echo '</thead>';
                         echo '</tbody';
@@ -50,12 +57,14 @@ if(isset($_SESSION['role'])){
                         while($row = mysqli_fetch_array($result)){
                             echo '<tr>';
                                 echo '<td>' . $row['id'] . '</td>';
-                                echo '<td>' . $row['login'] . '</td>';
-                                echo '<td>' . $row['role'] . '</td>';
-                                echo '<td>' . $row['isVerified'] . '</td>';
+                                echo '<td>' . $row['Reference'] . '</td>';
+                                echo '<td>' . $row['Categorie'] . '</td>';
+                                echo '<td>' . $row['PUHT'] . '</td>';
+                                echo '<td>' . $row['Description'] . '</td>';
+                                echo '<td>' . $row['Stock'] . '</td>';
                                 echo '<td>';
-                                    echo '<a href="./update.php?id='.$row['id'].'" class="mr-3" title="update" data-toggle="tooltip"><span class="fas fa-pencil-alt"></span></a>';
-                                    echo '<a href="./delete.php?id='.$row['id'].'" class="mr-3" title="update" data-toggle="tooltip"><span class="fa fa-trash"></span></a>';
+                                    echo '<a href="./crud_produits/update_produits.php?id='.$row['id'].'" class="mr-3" title="update" data-toggle="tooltip"><span class="fas fa-pencil-alt"></span></a>';
+                                    echo '<a href="./crud_produits/delete_produits.php?id='.$row['id'].'" class="mr-3" title="update" data-toggle="tooltip"><span class="fa fa-trash"></span></a>';
                                 echo '</td>';
                             echo '</tr>';
                         }
@@ -63,10 +72,9 @@ if(isset($_SESSION['role'])){
                     echo '</table>';
 
                     }else{
-                            echo '<div class="alert alert-danger"><em>Aucun utilisateur trouvé.</em></div>';
+                            echo '<div class="alert alert-danger"><em>Aucun produit trouvé.</em></div>';
                         }
-                    }else{
-                    echo '<div class="alert alert-danger"><em>Aucun utilisateur trouvé.</em></div>';
+                    
                 }
                 mysqli_close($conn);
                 ?>
