@@ -22,12 +22,12 @@ if(isset($_SESSION['role'])){
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" >
 </head>
 <body>
-    
-    <h1>Produits</h1>
+    <?php include '../../php/includes/menu.php'; ?>
+    <h1 class="text-center">Produits</h1>
 
         <div class="text-center">
-            <?php echo '<a href="./crud_produits/create_produits.php">Ajout produits</a>';
-            ?>
+            <a class="btn btn-danger" href="./crud_produits/create_produits.php" role="button">+ Ajout produits +</a>
+            
         </div>
 
     <div class="wrapper">
@@ -82,5 +82,6 @@ if(isset($_SESSION['role'])){
         </div>
     </div>
 </div>
+    <?php include '../../php/includes/footer.php'; ?>
 </body>
 </html>

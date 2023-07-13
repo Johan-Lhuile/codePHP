@@ -62,6 +62,9 @@ if(isset($_SESSION['role'])){
         <li class="nav-item">
           <a class="nav-link" href="./inscription.php">Inscription</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="./clients.php">Clients</a>
+        </li>
         
         <?php else : ?>
           <li class="nav-items">

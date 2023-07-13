@@ -26,7 +26,7 @@ if(mysqli_query($conn,$sql)){
 }
 
 
-$sql2 = "CREATE TABLE IF NOT EXISTS produits(
+$sql = "CREATE TABLE IF NOT EXISTS produits(
 
     id int(6) unsigned auto_increment primary key,
     Reference varchar(50) not null,
@@ -36,13 +36,34 @@ $sql2 = "CREATE TABLE IF NOT EXISTS produits(
     Description text not null,
     Stock int(10) not null)";
 
-if(mysqli_query($conn,$sql2)){
+if(mysqli_query($conn,$sql)){
 
     echo "Table 'Produits' est créée";
 
 }else{
 
     echo "Erreur de création table produits";
+
+}
+
+$sql = "CREATE TABLE IF NOT EXISTS clients (
+
+    id int(6) unsigned auto_increment primary key,
+    nom varchar(50) not null,
+    prenom varchar(50) not null,
+    tel varchar (15) not null,
+    adresse text not null,
+    cp varchar(10) not null,
+    ville varchar(50) not null,
+    user_id int(15) not null)";
+
+if(mysqli_query($conn,$sql)){
+
+    echo "Table 'Clients' est créée";
+
+}else{
+
+    echo "Erreur de création table Clients";
 
 }
     

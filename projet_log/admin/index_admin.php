@@ -23,7 +23,7 @@ if(isset($_SESSION['role'])){
 </head>
 <body>
     <?php include '../php/includes/menu.php'; ?>
-    <h1>Utilisateurs</h1>
+    <h1 class="text-center">Utilisateurs</h1>
 
     <div class="wrapper">
         <div class="container-fluid">
@@ -74,5 +74,7 @@ if(isset($_SESSION['role'])){
         </div>
     </div>
 </div>
+
+    <?php include '../php/includes/footer.php'; ?>
 </body>
 </html>
