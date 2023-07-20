@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+$_SESSION['client'] = '';
 $_SESSION['erreur']='';
 $_SESSION['login']='';
 $_SESSION['role']='';
@@ -39,7 +39,7 @@ if ($result = mysqli_query($conn, $sql)) {
     while($row = mysqli_fetch_array($result)){
         
         if (($login_ok == $row['login']) && (password_verify($password_ok, $row['mdp']))){
-            
+            $_SESSION['client'] = $row['login'];
             $_SESSION['login'] = "ok";
             $_SESSION['role'] = $row['role'];
             $valide = "ok";

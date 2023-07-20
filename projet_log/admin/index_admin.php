@@ -22,7 +22,7 @@ if(isset($_SESSION['role'])){
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" >
 </head>
 <body>
-    <?php include '../php/includes/menu.php'; ?>
+    <?php include './php/includes/menu.php'; ?>
     <h1 class="text-center">Utilisateurs</h1>
 
     <div class="wrapper">

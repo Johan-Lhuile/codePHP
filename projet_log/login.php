@@ -31,6 +31,8 @@ if (isset($_SESSION['erreur'])){
         <br> <input type="submit" value="Connexion">
     </form>
 
+    <a href="./reset_password.php">Mot de passe oublié !!!</a>
+
     <div class="erreur">
         <?php
             echo $erreur;

@@ -9,8 +9,8 @@ if(isset($_SESSION['client'])){
 
 require '../php/crud/config.php';
 
-$non = $prenom = $tel = $adres = $compl = $cp = $ville = $userid = '';
-$non_err = $prenom_err = $tel_err = $adres_err = $compl_err = $cp_err = $ville_err = $userid_err = '';
+$nom = $prenom = $tel = $adres = $compl = $cp = $ville = $user_id = '';
+$nom_err = $prenom_err = $tel_err = $adres_err = $compl_err = $cp_err = $ville_err = $userid_err = '';
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
 
@@ -36,10 +36,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $adresse = '';
     }
 
-    $input_complement = trim($_POST["complement"]);
-    if(!empty($input_complement)){
-        $complement = $input_complement;
-    }
+    // $input_complement = trim($_POST["complement"]);
+    // if(!empty($input_complement)){
+    //     $complement = $input_complement;
+    // }
 
     $input_cp = trim($_POST["cp"]);
     if(!empty($input_cp)){
@@ -52,16 +52,16 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
   
     $recup = $_SESSION['recup_id'];
-        $sql = "update clients set nom=?, prenom=?, tel=?, adresse=?, complement=?, cp=?, ville=?, user_id=? where id=$recup";
+        $sql = "UPDATE clients SET nom=?, prenom=?, tel=?, adresse=?, cp=?, ville=?, user_id=? WHERE id=$recup";
 
         if($stmt=mysqli_prepare($conn,$sql)){
-            mysqli_stmt_bind_param($stmt, "sssssssi", $param_nom, $param_prenom, $param_tel,$param_adresse, $param_complement, $param_cp, $param_ville,$param_user_id);
+            mysqli_stmt_bind_param($stmt, "ssssssi", $param_nom, $param_prenom, $param_tel,$param_adresse, $param_cp, $param_ville,$param_user_id);
 
             $param_nom = $nom;
             $param_prenom = $prenom;
             $param_tel = $tel;
             $param_adresse = $adresse;
-            $param_complement = $complement;
+            // $param_complement = $complement;
             $param_cp = $cp;
             $param_ville = $ville;
             $param_user_id = $_SESSION['id'];
@@ -69,7 +69,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
             if(mysqli_stmt_execute($stmt)){
                 $_SESSION['recup_id']='';
-                header("location: ./update_client.php");
+                header("location: ../index.php");
                 exit();
             }else{ 
                 echo "Oops ! erreur inattendu, rééssayez plus tard !!!";
@@ -81,7 +81,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 }else{
    
 // récup id dans table users
-        $sql = "SELECT * FROM `users` WHERE `login` = ?";
+        $sql = "SELECT * FROM user WHERE login = ?";
 
         if($stmt= mysqli_prepare($conn, $sql)){
             mysqli_stmt_bind_param($stmt,"s", $param_login);
@@ -95,7 +95,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     $row=mysqli_fetch_array($result, MYSQLI_ASSOC);
                     $_SESSION['id'] = $row['id'];
                     }else{
-                        header('location: ../index.php');
+                        header('location: ./index.php');
                         exit();
                     }  
             }else{
@@ -104,9 +104,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         }
         
 // récup table clients
-$sql = "select * from clients where user_id=?";
+$sql = "SELECT * FROM clients WHERE user_id=?";
 
-        if($stmt= mysqli_prepare($link, $sql)){
+        if($stmt= mysqli_prepare($conn, $sql)){
             mysqli_stmt_bind_param($stmt,"i", $param_user_id);
 
             $param_user_id = $_SESSION['id'];
@@ -120,7 +120,7 @@ $sql = "select * from clients where user_id=?";
                     $prenom = $row['prenom'];
                     $tel = $row['tel'];
                     $adresse = $row['adresse'];
-                    $complement = $row['complement'];
+                    // $complement = $row['complement'];
                     $cp = $row['cp'];
                     $ville = $row['ville'];
                     $user_id = $row['user_id'];
@@ -129,12 +129,12 @@ $sql = "select * from clients where user_id=?";
                         
                         $param_id =$_SESSION['id'];
                         $sql = "INSERT INTO clients (user_id) VALUE ('$param_user_id')";
-                        $result = mysqli_query($link, $sql);
-                        $_SESSION['recup_id']=mysqli_insert_id($link);
+                        $result = mysqli_query($conn, $sql);
+                        $_SESSION['recup_id']= mysqli_insert_id($conn);
                         
                         if($result){
                             
-                            mysqli_close($link);
+                            mysqli_close($conn);
                         } else{
                             echo "Oops! erreur inattendu, rééssayez ultérieusement";
                         }
@@ -202,13 +202,13 @@ $sql = "select * from clients where user_id=?";
                             value="<?php echo $adresse;?>">
                         <span class="invalid-feedback"><?php echo $adresse_err; ?></span>
                     </div>
-                    <div class="form-group"><br>
+                    <!-- <div class="form-group"><br>
                         <label>Complément d'adresse</label>
                         <input type="text" name="complement"
                             class="form-controle <?php echo (!empty($complement_err)) ? 'is-invalid' : ''; ?>"
                             value="<?php echo $complement;?>">
                         <span class="invalid-feedback"><?php echo $complement_err; ?></span>
-                    </div>
+                    </div> -->
                     <div class="form-group"><br>
                         <label>Code postal</label>
                         <input type="text" name="cp"
